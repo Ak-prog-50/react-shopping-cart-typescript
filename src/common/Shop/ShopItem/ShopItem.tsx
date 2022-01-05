@@ -6,12 +6,10 @@ import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
 
 export default function ShopItem({imgUrl, name, size, quantity, price} :any) {
-
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         title={name}
-        subheader="September 14, 2016"
       />
       <CardMedia
         component="img"
@@ -23,7 +21,7 @@ export default function ShopItem({imgUrl, name, size, quantity, price} :any) {
             {price}
         </Typography>
       </CardContent>
-      <Button variant="contained">Checkout</Button>
+      <Button variant="contained">Add to Cart</Button>
     </Card>
   );
 }

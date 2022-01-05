@@ -9,6 +9,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CloseIcon from '@mui/icons-material/Close';
 import PurchasedItemCard from './PurchasedItemCard/PurchasedItemCard';
 import Badge from '@mui/material/Badge';
+import { Button } from '@mui/material';
 
 const drawerWidth = 460;
 
@@ -33,7 +34,7 @@ export default function ShoppingCart({data} :any) {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex"}}>
       <CssBaseline />
       <IconButton
         color="inherit"
@@ -85,6 +86,7 @@ export default function ShoppingCart({data} :any) {
             imgUrl={item.details.image}
           />
         ))}
+      <Button variant="contained">Checkout</Button>
       </Drawer>
     </Box>
   );
