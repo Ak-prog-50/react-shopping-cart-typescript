@@ -1,5 +1,3 @@
-import React from 'react';
-import { Counter } from './features/counter/Counter';
 import Cart from './common/ShoppingCart/ShoppingCart'
 import Shop from './common/Shop/Shop'
 
