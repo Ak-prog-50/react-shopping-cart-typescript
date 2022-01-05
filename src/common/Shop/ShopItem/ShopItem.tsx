@@ -15,13 +15,14 @@ export default function ShopItem({imgUrl, name, size, quantity, price} :any) {
         component="img"
         height="194"
         image={imgUrl}
+        sx={{objectFit:'contain'}}
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
             {price}
         </Typography>
+        <Button variant="contained" sx={{mt : 2}}>Add to Cart</Button>
       </CardContent>
-      <Button variant="contained">Add to Cart</Button>
     </Card>
   );
 }

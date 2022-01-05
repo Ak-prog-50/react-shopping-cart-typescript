@@ -7,10 +7,10 @@ import Typography from '@mui/material/Typography';
 export default function PurchasedItemCard({imgUrl, name, size, quantity, price} :any) {
 
   return (
-    <Card sx={{ display: 'flex', overflowY : 'scroll'}}>
+    <Card sx={{ display: 'flex', overflow : 'visible'}}>
       <CardMedia
         component="img"
-        sx={{ width: 151 }}
+        sx={{ width: 151, objectFit : 'contain' }}
         image={imgUrl}
         alt={name}
       />

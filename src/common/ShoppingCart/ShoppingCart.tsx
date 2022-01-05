@@ -9,7 +9,9 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CloseIcon from '@mui/icons-material/Close';
 import PurchasedItemCard from './PurchasedItemCard/PurchasedItemCard';
 import Badge from '@mui/material/Badge';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 const drawerWidth = 460;
 
@@ -34,7 +36,7 @@ export default function ShoppingCart({data} :any) {
   };
 
   return (
-    <Box sx={{ display: "flex"}}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <IconButton
         color="inherit"
@@ -86,7 +88,16 @@ export default function ShoppingCart({data} :any) {
             imgUrl={item.details.image}
           />
         ))}
-      <Button variant="contained">Checkout</Button>
+        <Card sx={{ display: "flex", overflow: "visible" , backgroundColor : '#84b9ba'}}>
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <CardContent sx={{ flex: "1 0 auto" }}>
+              <Typography variant="h4" color="text.secondary">
+                Sub Total : 1545
+              </Typography>
+              <Button variant="contained">Checkout</Button>
+            </CardContent>
+          </Box>
+        </Card>
       </Drawer>
     </Box>
   );
