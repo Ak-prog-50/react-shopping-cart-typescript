@@ -1,5 +1,5 @@
-import Cart from './common/ShoppingCart/ShoppingCart'
-import Shop from './common/Shop/Shop'
+import Cart from './features/ShoppingCart/ShoppingCart'
+import Shop from './features/Shop/Shop'
 
 const data = [
   {
