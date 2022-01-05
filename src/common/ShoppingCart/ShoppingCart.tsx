@@ -10,7 +10,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import PurchasedItemCard from './PurchasedItemCard/PurchasedItemCard';
 import Badge from '@mui/material/Badge';
 
-
 const drawerWidth = 460;
 
 const DrawerHeader = styled('div')(({theme}) => ({
@@ -74,7 +73,7 @@ export default function ShoppingCart({data} :any) {
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
-        
+
         <Divider />
         {data.map((item: any) => (
           <PurchasedItemCard

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Counter } from './features/counter/Counter';
 import Cart from './common/ShoppingCart/ShoppingCart'
+import Shop from './common/Shop/Shop'
 
 const data = [
   {
@@ -63,7 +64,10 @@ const data = [
 function App() {
   return (
     <>
+      {/*Order By*/}
+      {/*Sizes and Filter By type */}
       <Cart data={data}/>
+      <Shop data={data}/>
     </>
   );
 }
