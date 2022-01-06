@@ -13,7 +13,6 @@ import { fetchData, selectAllProducts, selectStatus } from '../shopSlice';
 const ShopHeader = () => {
     const [age, setAge] = React.useState('');
     
-
     const handleChange = (event: SelectChangeEvent) => {
         setAge(event.target.value as string);
     };
@@ -61,11 +60,11 @@ const Filters = () => {
   </Grid>
   )
 }
+
 const Shop = () => {
   const data = useAppSelector(selectAllProducts)
   const dataLoading = useAppSelector(selectStatus)
   const dispatch = useAppDispatch()
-
 
   React.useEffect(() => {
     if (dataLoading === 'idle') {
