@@ -4,11 +4,10 @@ import Grid from '@mui/material/Grid';
 import ShopItem from './ShopItem/ShopItem'
 import { Container, Typography, Select, MenuItem, FormControl, InputLabel, Divider } from '@mui/material';
 import{ SelectChangeEvent } from '@mui/material/Select';
-import SelectSize from './Filters/SelectSize';
-import SelectType from './Filters/SelectType'
+import Filters from './Filters/Filters';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { fetchData, selectAllProducts, selectStatus } from '../shopSlice';
-
+import Loading from '../../components/Loading'
 
 const ShopHeader = () => {
     const [age, setAge] = React.useState('');
@@ -48,19 +47,6 @@ const ShopHeader = () => {
     );
 }
 
-const Filters = () => {
-  return (
-    <Grid container spacing={2}>
-    <Grid item xs={6}>
-      <SelectSize />
-    </Grid>
-    <Grid item xs={6}>
-      <SelectType />
-      </Grid>
-  </Grid>
-  )
-}
-
 const Shop = () => {
   const data = useAppSelector(selectAllProducts)
   const dataLoading = useAppSelector(selectStatus)
@@ -71,6 +57,10 @@ const Shop = () => {
       dispatch(fetchData())
     }
   }, [])
+  
+    if (dataLoading === 'loading') {
+      return <Loading />
+    }
 
     return (
     <Container>
