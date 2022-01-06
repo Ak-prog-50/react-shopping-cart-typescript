@@ -6,6 +6,8 @@ import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
+import { useAppDispatch } from '../../../app/hooks';
+import { filterBySize } from '../../shopSlice';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -19,23 +21,23 @@ const MenuProps = {
 };
 
 const names = [
-    'XS',
-    'S',
-    'M',
-    'L',
-    'XL',
-    'XXL'
+    'xsmall',
+    'small',
+    'medium',
+    'large',
+    'xlarge',
 ];
 
 export default function SelectSize() {
   const [size, setSize] = React.useState<string[]>([]);
+  const dispatch = useAppDispatch()
 
   const handleChange = (event: SelectChangeEvent<typeof size>) => {
     const {target: { value }} = event;
-    setSize(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
+    const formattedValue = typeof value === 'string' ? value.split(',') : value
+    setSize(formattedValue)
+    console.log(formattedValue)
+    dispatch(filterBySize(formattedValue))
   };
 
   return (
