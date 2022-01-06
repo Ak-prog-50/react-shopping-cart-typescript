@@ -12,6 +12,8 @@ import Badge from '@mui/material/Badge';
 import { Button, Typography } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import { useAppSelector } from '../../app/hooks';
+import { selectAllProducts, selectChecked } from '../shopSlice';
 
 const drawerWidth = 460;
 
@@ -24,8 +26,12 @@ const DrawerHeader = styled('div')(({theme}) => ({
   justifyContent: 'flex-start',
 }));
 
-export default function ShoppingCart({data} :any) {
+export default function ShoppingCart() {
   const [open, setOpen] = React.useState(false);
+  const allProducts = useAppSelector(selectAllProducts)
+  const checked = useAppSelector(selectChecked)
+
+  const data = allProducts.filter((i:any) => checked.includes(i.id))
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -86,6 +92,7 @@ export default function ShoppingCart({data} :any) {
             size={item.details.size}
             quantity={3}
             imgUrl={item.details.image}
+            id={item.id}
           />
         ))}
         <Card sx={{ display: "flex", overflow: "visible" , backgroundColor : '#84b9ba'}}>

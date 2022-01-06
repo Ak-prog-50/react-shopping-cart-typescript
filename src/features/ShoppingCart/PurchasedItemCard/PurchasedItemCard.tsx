@@ -3,8 +3,14 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import { useAppDispatch } from '../../../app/hooks';
+import { removeCheckout } from '../../shopSlice';
 
-export default function PurchasedItemCard({imgUrl, name, size, quantity, price} :any) {
+export default function PurchasedItemCard({imgUrl, name, size, quantity, price, id} :any) {
+  const dispatch = useAppDispatch()
+  const handleRemove = (event :any) => {
+    dispatch(removeCheckout(event.target.getAttribute('id')))
+  }
 
   return (
     <Card sx={{ display: 'flex', overflow : 'visible'}}>
@@ -28,6 +34,7 @@ export default function PurchasedItemCard({imgUrl, name, size, quantity, price} 
           <Typography variant="subtitle1" color="text.secondary" component="div">
             {price}
           </Typography>
+          <button onClick={handleRemove} id={id}>remove</button>
         </CardContent>
       </Box>
     </Card>
