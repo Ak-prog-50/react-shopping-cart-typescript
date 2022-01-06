@@ -6,10 +6,13 @@ import { Container, Typography, Select, MenuItem, FormControl, InputLabel, Divid
 import{ SelectChangeEvent } from '@mui/material/Select';
 import SelectSize from './Filters/SelectSize';
 import SelectType from './Filters/SelectType'
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { fetchData, selectAllProducts, selectStatus } from '../shopSlice';
 
 
 const ShopHeader = () => {
     const [age, setAge] = React.useState('');
+    
 
     const handleChange = (event: SelectChangeEvent) => {
         setAge(event.target.value as string);
@@ -58,7 +61,18 @@ const Filters = () => {
   </Grid>
   )
 }
-const Shop = ({data}:any) => {
+const Shop = () => {
+  const data = useAppSelector(selectAllProducts)
+  const dataLoading = useAppSelector(selectStatus)
+  const dispatch = useAppDispatch()
+
+
+  React.useEffect(() => {
+    if (dataLoading === 'idle') {
+      dispatch(fetchData())
+    }
+  }, [])
+
     return (
     <Container>
       <ShopHeader />
@@ -66,7 +80,7 @@ const Shop = ({data}:any) => {
       <Divider sx={{m:4, backgroundColor : '#050503'}}/>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
-        {data.map((item: any) => (
+        {data.length && data.map((item: any) => (
             <Grid item xs={4}>
             <ShopItem
                 name={item.name}
