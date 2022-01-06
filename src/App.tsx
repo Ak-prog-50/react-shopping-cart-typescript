@@ -8,7 +8,7 @@ function App() {
     <>
       {/*Order By*/}
       {/*Sizes and Filter By type */}
-      <Cart data={data}/>
+      <Cart />
       <Shop />
     </>
   );
