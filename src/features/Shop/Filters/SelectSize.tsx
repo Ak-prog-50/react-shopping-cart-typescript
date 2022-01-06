@@ -31,9 +31,7 @@ export default function SelectSize() {
   const [size, setSize] = React.useState<string[]>([]);
 
   const handleChange = (event: SelectChangeEvent<typeof size>) => {
-    const {
-      target: { value },
-    } = event;
+    const {target: { value }} = event;
     setSize(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
