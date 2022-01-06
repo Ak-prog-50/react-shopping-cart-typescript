@@ -52,6 +52,11 @@ export const productSlice = createSlice({
     },
     addToCheckout : (state, action :PayloadAction<string>) => {
       !state.checkedProducts.includes(action.payload) && state.checkedProducts.push(action.payload)
+    },
+    removeCheckout: (state, action: PayloadAction<string>) => {
+      const index = state.checkedProducts.indexOf(action.payload);
+      state.checkedProducts.includes(action.payload) &&
+        state.checkedProducts.splice(index, 1);
     }
   },
 
@@ -76,12 +81,12 @@ export const fetchData = createAsyncThunk('product/fetchProducts', async () => {
   const response = await fetch('https://my-json-server.typicode.com/prasadhewage/ecommerce/shipments')
   return response.json()
 })
-export const { orderByPrice, filterBySize, filterByType, addToCheckout } = productSlice.actions;
+export const { orderByPrice, filterBySize, filterByType, addToCheckout, removeCheckout } = productSlice.actions;
 
 // selectors
 export const selectAllProducts = (state :RootState) => state.products.allProducts;
 export const selectStatus = (state :RootState) => state.products.status;
 export const selectFiltered = (state :RootState) => state.products.filtered;
-// export const selectFiltered:any = (state :RootState, filtArr : string[]) => state.products.allProducts.filter((i:any) => filtArr.includes(i.details.size))
+export const selectChecked = (state :RootState) => state.products.checkedProducts
 
 export default productSlice.reducer;
