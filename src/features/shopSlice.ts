@@ -18,7 +18,7 @@ export interface shopState {
   checkedProducts : Array<shopItem>;
   status: 'idle' | 'loading' | 'failed' | 'succeeded' | 'failed';
   error : string | null | undefined;
-  filtered : {value : boolean, sizes : string[]}
+  filtered : { sizes : string[] }
 }
 
 const initialState :shopState = {
@@ -27,7 +27,6 @@ const initialState :shopState = {
   status: 'idle',
   error : null,
   filtered : {
-    value : false,
     sizes : []
   }
 };
@@ -45,9 +44,6 @@ export const productSlice = createSlice({
       }
     },
     filterBySize : (state, action :PayloadAction<string[]>) => {
-      // return state.allProducts.filter((i:any) => action.payload.includes(i.details.size))
-      // return selectFiltered(state, action.payload)
-      state.filtered.value = true
       state.filtered.sizes = action.payload
     },
     resetProducts : (state) => {

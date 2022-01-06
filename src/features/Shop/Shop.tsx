@@ -6,13 +6,18 @@ import { Container, Typography, Select, MenuItem, FormControl, InputLabel, Divid
 import{ SelectChangeEvent } from '@mui/material/Select';
 import Filters from './Filters/Filters';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchData, selectAllProducts, selectStatus, orderByPrice, selectFiltered } from '../shopSlice';
+import { fetchData, selectAllProducts, selectStatus, orderByPrice, selectFiltered, shopItem } from '../shopSlice';
 import Loading from '../../components/Loading'
 
 const ShopHeader = () => {
+    let data :Array<shopItem>;
     const [order, setOrder] = React.useState<string>('');
     const dispatch = useAppDispatch()
-    const data = useAppSelector(selectAllProducts)
+    data = useAppSelector(selectAllProducts)
+    const filtered = useAppSelector(selectFiltered)
+    if (filtered.sizes.length) {
+      data = data.filter((i:any) => filtered.sizes.includes(i.details.size))
+    }
 
     const handleChange = (event: SelectChangeEvent) => {
         setOrder(event.target.value as string)
@@ -51,10 +56,14 @@ const ShopHeader = () => {
 }
 
 const Shop = () => {
-  const data = useAppSelector(selectAllProducts)
+  let data :Array<shopItem>;
+  data = useAppSelector(selectAllProducts)
   const dataLoading = useAppSelector(selectStatus)
   const dispatch = useAppDispatch()
   const filtered = useAppSelector(selectFiltered)
+  if (filtered.sizes.length) {
+    data = data.filter((i:any) => filtered.sizes.includes(i.details.size))
+  }
 
   React.useEffect(() => {
     if (dataLoading === 'idle') {
@@ -73,17 +82,7 @@ const Shop = () => {
       <Divider sx={{m:4, backgroundColor : '#050503'}}/>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
-        {filtered.sizes.length && data.length && data.filter((i:any) => filtered.sizes.includes(i.details.size))
-          .map((item :any) => (
-            <Grid item xs={4} key={item.id}>
-            <ShopItem
-                name={item.name}
-                price={item.details.price}
-                imgUrl={item.details.image}
-            />
-          </Grid>
-          ))}
-        {!filtered.sizes.length && data.length && data.map((item: any) => (
+        {data.length && data.map((item: any) => (
             <Grid item xs={4} key={item.id}>
               <ShopItem
                   name={item.name}
