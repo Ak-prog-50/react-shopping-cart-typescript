@@ -36,7 +36,6 @@ export default function SelectSize() {
     const {target: { value }} = event;
     const formattedValue = typeof value === 'string' ? value.split(',') : value
     setSize(formattedValue)
-    console.log(formattedValue)
     dispatch(filterBySize(formattedValue))
   };
 

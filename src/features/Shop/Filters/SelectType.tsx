@@ -4,12 +4,16 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { useAppDispatch } from '../../../app/hooks';
+import { filterByType } from '../../shopSlice';
 
 export default function SelectType() {
-  const [type, setType] = React.useState('');
+  const [type, setType] = React.useState<string>('');
+  const dispatch = useAppDispatch()
 
   const handleChange = (event: SelectChangeEvent) => {
     setType(event.target.value as string);
+    dispatch(filterByType(event.target.value as string))
   };
 
   return (
@@ -23,9 +27,9 @@ export default function SelectType() {
           label="Type"
           onChange={handleChange}
         >
-          <MenuItem value={10}>T Shirts</MenuItem>
-          <MenuItem value={20}>Dress Shirts</MenuItem>
-          <MenuItem value={30}>Show All</MenuItem>
+          <MenuItem value={"t-shirt"}>T Shirts</MenuItem>
+          <MenuItem value={"dress shirts"}>Dress Shirts</MenuItem>
+          <MenuItem value={"show-all"}>Show All</MenuItem>
         </Select>
       </FormControl>
     </Box>

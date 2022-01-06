@@ -61,8 +61,15 @@ const Shop = () => {
   const dataLoading = useAppSelector(selectStatus)
   const dispatch = useAppDispatch()
   const filtered = useAppSelector(selectFiltered)
+
   if (filtered.sizes.length) {
     data = data.filter((i:any) => filtered.sizes.includes(i.details.size))
+  }
+
+  if (filtered.type && filtered.type !== 'show-all') {
+    console.log(filtered.type)
+    data = data.filter((i:any) => i.details.type === filtered.type)
+    console.log(data)
   }
 
   React.useEffect(() => {

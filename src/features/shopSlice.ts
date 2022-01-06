@@ -18,7 +18,7 @@ export interface shopState {
   checkedProducts : Array<shopItem>;
   status: 'idle' | 'loading' | 'failed' | 'succeeded' | 'failed';
   error : string | null | undefined;
-  filtered : { sizes : string[] }
+  filtered : { sizes : string[], type : null | string }
 }
 
 const initialState :shopState = {
@@ -27,7 +27,8 @@ const initialState :shopState = {
   status: 'idle',
   error : null,
   filtered : {
-    sizes : []
+    sizes : [],
+    type : null
   }
 };
 
@@ -46,9 +47,9 @@ export const productSlice = createSlice({
     filterBySize : (state, action :PayloadAction<string[]>) => {
       state.filtered.sizes = action.payload
     },
-    resetProducts : (state) => {
-      state.allProducts = initialState.allProducts
-    } 
+    filterByType : (state, action :PayloadAction<string>) => {
+      state.filtered.type = action.payload
+    }
   },
 
   extraReducers(builder) {
@@ -72,7 +73,7 @@ export const fetchData = createAsyncThunk('product/fetchProducts', async () => {
   const response = await fetch('https://my-json-server.typicode.com/prasadhewage/ecommerce/shipments')
   return response.json()
 })
-export const { orderByPrice, filterBySize, resetProducts } = productSlice.actions;
+export const { orderByPrice, filterBySize, filterByType } = productSlice.actions;
 
 // selectors
 export const selectAllProducts = (state :RootState) => state.products.allProducts;
