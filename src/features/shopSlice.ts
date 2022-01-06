@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../app/store';
-
+import { sortByLowest, sortByHighest } from './utils'
 interface shopItem {
   id : string;
   name : string;
@@ -31,8 +31,13 @@ export const productSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    renderProducts : (state, action :PayloadAction<[]>) => {
-      action.payload.map((item) => state.allProducts.push(item)) //item never
+    orderByPrice : (state, action :PayloadAction<string>) => {
+      if (action.payload === 'highToLow') {
+        state.allProducts.sort(sortByHighest)
+      }
+      if (action.payload === 'lowToHigh') {
+        state.allProducts.sort(sortByLowest)
+      }
     }
   },
   extraReducers(builder) {
@@ -52,12 +57,11 @@ export const productSlice = createSlice({
   }
 });
 
-export const { renderProducts } = productSlice.actions
-
 export const fetchData = createAsyncThunk('product/fetchProducts', async () => {
   const response = await fetch('https://my-json-server.typicode.com/prasadhewage/ecommerce/shipments')
   return response.json()
 })
+export const { orderByPrice } = productSlice.actions;
 
 // selectors
 export const selectAllProducts = (state :RootState) => state.products.allProducts;

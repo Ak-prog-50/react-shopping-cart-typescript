@@ -6,14 +6,16 @@ import { Container, Typography, Select, MenuItem, FormControl, InputLabel, Divid
 import{ SelectChangeEvent } from '@mui/material/Select';
 import Filters from './Filters/Filters';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchData, selectAllProducts, selectStatus } from '../shopSlice';
+import { fetchData, selectAllProducts, selectStatus, orderByPrice } from '../shopSlice';
 import Loading from '../../components/Loading'
 
 const ShopHeader = () => {
-    const [age, setAge] = React.useState('');
-    
+    const [order, setOrder] = React.useState<string>();
+    const dispatch = useAppDispatch()
+
     const handleChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value as string);
+        setOrder(event.target.value as string)
+        dispatch(orderByPrice(event.target.value as string))
     };
     return (
       <Grid container spacing={2} my={4}>
@@ -34,12 +36,12 @@ const ShopHeader = () => {
             <Select
               labelId="order_by"
               id="order_by_price"
-              label="Age"
-              value={age}
+              label="order"
+              value={order}
               onChange={handleChange}
             >
-              <MenuItem value={10}>Price Ascending</MenuItem>
-              <MenuItem value={20}>Price Descending</MenuItem>
+              <MenuItem value={'lowToHigh'}>Price Ascending</MenuItem>
+              <MenuItem value={'highToLow'}>Price Descending</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -70,12 +72,12 @@ const Shop = () => {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
         {data.length && data.map((item: any) => (
-            <Grid item xs={4}>
-            <ShopItem
-                name={item.name}
-                price={item.details.price}
-                imgUrl={item.details.image}
-            />
+            <Grid item xs={4} key={item.id}>
+              <ShopItem
+                  name={item.name}
+                  price={item.details.price}
+                  imgUrl={item.details.image}
+              />
             </Grid>
         ))}
         </Grid>
