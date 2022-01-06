@@ -12,6 +12,7 @@ import Loading from '../../components/Loading'
 const ShopHeader = () => {
     const [order, setOrder] = React.useState<string>();
     const dispatch = useAppDispatch()
+    const data = useAppSelector(selectAllProducts) 
 
     const handleChange = (event: SelectChangeEvent) => {
         setOrder(event.target.value as string)
@@ -27,7 +28,7 @@ const ShopHeader = () => {
             fontSize={33}
             fontWeight={900}
           >
-            5 Product(s) found
+            {data.length} Product(s) found
           </Typography>
         </Grid>
         <Grid item xs={4}>
