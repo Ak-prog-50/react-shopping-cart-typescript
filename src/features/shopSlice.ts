@@ -21,6 +21,8 @@ export interface shopState {
   filtered : { sizes : string[], type : null | string }
 }
 
+type checkedItem = {id:string|null, quantity:number}|undefined
+
 const initialState :shopState = {
   allProducts: [],
   checkedProducts : [{id : null , quantity : 0}],
@@ -52,7 +54,7 @@ export const productSlice = createSlice({
     },
     addToCheckout : (state, action :PayloadAction<string>) => {
       if (state.checkedProducts.some(i => i.id === action.payload)) {
-        const item:any = state.checkedProducts.find(i => i.id === action.payload)
+        const item :checkedItem = state.checkedProducts.find(i => i.id === action.payload)
         if (item) item.quantity += 1;
       }
       else state.checkedProducts.push({id : action.payload, quantity : 1})
@@ -61,8 +63,8 @@ export const productSlice = createSlice({
     removeCheckout: (state, action: PayloadAction<string>) => {
       const index = state.checkedProducts.findIndex(i => i.id === action.payload);
       if (state.checkedProducts.some(i => i.id === action.payload)) {
-        const item:any = state.checkedProducts.find(i => i.id === action.payload)
-        if (item.quantity > 1) item.quantity -= 1;
+        const item:checkedItem = state.checkedProducts.find(i => i.id === action.payload)
+        if (item && item.quantity > 1) item.quantity -= 1;
         else state.checkedProducts.splice(index, 1);
       }
     }

@@ -16,7 +16,7 @@ const ShopHeader = () => {
     data = useAppSelector(selectAllProducts)
     const filtered = useAppSelector(selectFiltered)
     if (filtered.sizes.length) {
-      data = data.filter((i:any) => filtered.sizes.includes(i.details.size))
+      data = data.filter((i:shopItem) => filtered.sizes.includes(i.details.size))
     }
 
     const handleChange = (event: SelectChangeEvent) => {
@@ -63,11 +63,11 @@ const Shop = () => {
   const filtered = useAppSelector(selectFiltered)
 
   if (filtered.sizes.length) {
-    data = data.filter((i:any) => filtered.sizes.includes(i.details.size))
+    data = data.filter((i:shopItem) => filtered.sizes.includes(i.details.size))
   }
 
   if (filtered.type && filtered.type !== 'show-all') {
-    data = data.filter((i:any) => i.details.type === filtered.type)
+    data = data.filter((i:shopItem) => i.details.type === filtered.type)
   }
 
   React.useEffect(() => {

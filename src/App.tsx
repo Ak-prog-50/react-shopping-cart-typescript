@@ -1,8 +1,6 @@
 import Cart from './features/ShoppingCart/ShoppingCart'
 import Shop from './features/Shop/Shop'
 
-const data :any = []
-
 function App() {
   return (
     <>
