@@ -56,7 +56,7 @@ export const productSlice = createSlice({
         const item:any = state.checkedProducts.find(i => i.id === action.payload)
         if (item) item.quantity += 1;
       }
-      state.checkedProducts.push({id : action.payload, quantity : 1})
+      else state.checkedProducts.push({id : action.payload, quantity : 1})
 
     },
     removeCheckout: (state, action: PayloadAction<string>) => {

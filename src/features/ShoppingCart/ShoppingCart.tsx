@@ -35,21 +35,7 @@ export default function ShoppingCart() {
   const data = allProducts.filter((i:any) => checked.find((item :any) => item.id === i.id))
   const  quantity = (id :string) :any => checked.find((i :any) => i.id === id).quantity
 
-  let unique:any = checked.reduce((res :any, itm :any) => {
-    // Test if the item is already in the new array
-    console.log("res", res)
-    let result = res.find((i :any) => JSON.stringify(i) == JSON.stringify(itm))
-    // If not lets add it
-    if(!result) return res.concat(itm)
-    // If it is just return what we already have
-    return res
-  }, [])
-  
-  console.log(unique)
-
   const cartQuantity = checked.map((i:any) => parseInt(i.quantity)).reduce(reducer)
-  console.log("checked", checked)
-  console.log("cartQuantity", cartQuantity)
 
   const prices = data.map((i:any) => i.details.price * quantity(i.id))
   const price :number = prices.length ? prices.reduce(reducer) : 0
