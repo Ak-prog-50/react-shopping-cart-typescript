@@ -34,7 +34,7 @@ export default function ShoppingCart() {
 
   const data = allProducts.filter((i:any) => checked.find((item :any) => item.id === i.id))
   const  quantity = (id :string) :any => checked.find((i :any) => i.id === id).quantity
-  
+
   const prices = data.map((i:any) => i.details.price * quantity(i.id))
   const price :number = prices.length ? prices.reduce(reducer) : 0
   
@@ -85,7 +85,7 @@ export default function ShoppingCart() {
         </DrawerHeader>
 
         <IconButton aria-label="cart">
-          <Badge badgeContent={4} color="secondary">
+          <Badge badgeContent={data.length} color="secondary">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
@@ -106,7 +106,7 @@ export default function ShoppingCart() {
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <CardContent sx={{ flex: "1 0 auto" }}>
               <Typography variant="h4" color="text.secondary">
-                Sub Total : {price.toFixed(2)}
+                Sub Total : ${price.toFixed(2)}
               </Typography>
               <Button variant="contained">Checkout</Button>
             </CardContent>

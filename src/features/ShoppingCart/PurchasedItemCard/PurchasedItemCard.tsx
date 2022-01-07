@@ -5,6 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { useAppDispatch } from '../../../app/hooks';
 import { removeCheckout } from '../../shopSlice';
+import { Button } from '@mui/material';
 
 export default function PurchasedItemCard({imgUrl, name, size, quantity, price, id} :any) {
   const dispatch = useAppDispatch()
@@ -29,12 +30,12 @@ export default function PurchasedItemCard({imgUrl, name, size, quantity, price, 
             {size}
           </Typography>
           <Typography variant="subtitle1" color="text.secondary" component="div">
-            {quantity}
+            Quantity : {quantity}
           </Typography>
-          <Typography variant="subtitle1" color="text.secondary" component="div">
-            {price}
+          <Typography variant="h6" color="text.secondary" component="div">
+            ${price}
           </Typography>
-          <button onClick={handleRemove} id={id}>remove</button>
+          <Button onClick={handleRemove} id={id}>remove</Button>
         </CardContent>
       </Box>
     </Card>

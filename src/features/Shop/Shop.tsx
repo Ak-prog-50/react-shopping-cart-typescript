@@ -94,6 +94,7 @@ const Shop = () => {
                   price={item.details.price}
                   imgUrl={item.details.image}
                   id={item.id}
+                  tag={item.details.tag}
               />
             </Grid>
         ))}
