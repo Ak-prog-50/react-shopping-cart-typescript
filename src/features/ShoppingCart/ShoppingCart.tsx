@@ -33,10 +33,11 @@ export default function ShoppingCart() {
   const checked :any= useAppSelector(selectChecked)
 
   const data = allProducts.filter((i:any) => checked.find((item :any) => item.id === i.id))
-
-  const prices = data.map((i:any) => i.details.price)
-  const price :number = prices.length ? prices.reduce(reducer) : 0
   const  quantity = (id :string) :any => checked.find((i :any) => i.id === id).quantity
+  
+  const prices = data.map((i:any) => i.details.price * quantity(i.id))
+  const price :number = prices.length ? prices.reduce(reducer) : 0
+  
   console.log(prices, price)
 
   const handleDrawerOpen = () => {
@@ -94,7 +95,7 @@ export default function ShoppingCart() {
           <PurchasedItemCard
             key={item.id}
             name={item.name}
-            price={item.details.price}
+            price={(item.details.price * parseInt(quantity(item.id))).toFixed(2)}
             size={item.details.size}
             quantity={quantity(item.id)}
             imgUrl={item.details.image}
