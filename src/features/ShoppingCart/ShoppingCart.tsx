@@ -14,6 +14,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { useAppSelector } from '../../app/hooks';
 import { selectAllProducts, selectChecked } from '../shopSlice';
+import { reducer } from '../utils';
 
 const drawerWidth = 460;
 
@@ -32,6 +33,10 @@ export default function ShoppingCart() {
   const checked = useAppSelector(selectChecked)
 
   const data = allProducts.filter((i:any) => checked.includes(i.id))
+
+  const prices = data.map((i:any) => i.details.price)
+  const price :number = prices.length ? prices.reduce(reducer) : 0
+  console.log(prices, price)
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -99,7 +104,7 @@ export default function ShoppingCart() {
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <CardContent sx={{ flex: "1 0 auto" }}>
               <Typography variant="h4" color="text.secondary">
-                Sub Total : 1545
+                Sub Total : {price.toFixed(2)}
               </Typography>
               <Button variant="contained">Checkout</Button>
             </CardContent>
