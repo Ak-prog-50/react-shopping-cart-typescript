@@ -30,12 +30,13 @@ const DrawerHeader = styled('div')(({theme}) => ({
 export default function ShoppingCart() {
   const [open, setOpen] = React.useState(false);
   const allProducts = useAppSelector(selectAllProducts)
-  const checked = useAppSelector(selectChecked)
+  const checked :any= useAppSelector(selectChecked)
 
-  const data = allProducts.filter((i:any) => checked.includes(i.id))
+  const data = allProducts.filter((i:any) => checked.find((item :any) => item.id === i.id))
 
   const prices = data.map((i:any) => i.details.price)
   const price :number = prices.length ? prices.reduce(reducer) : 0
+  const  quantity = (id :string) :any => checked.find((i :any) => i.id === id).quantity
   console.log(prices, price)
 
   const handleDrawerOpen = () => {
@@ -95,7 +96,7 @@ export default function ShoppingCart() {
             name={item.name}
             price={item.details.price}
             size={item.details.size}
-            quantity={3}
+            quantity={quantity(item.id)}
             imgUrl={item.details.image}
             id={item.id}
           />

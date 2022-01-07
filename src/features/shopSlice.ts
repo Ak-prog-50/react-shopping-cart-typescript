@@ -15,7 +15,7 @@ export interface shopItem {
 
 export interface shopState {
   allProducts : Array<shopItem>;
-  checkedProducts : Array<string>;
+  checkedProducts : Array<{id :string | null, quantity : number}>;
   status: 'idle' | 'loading' | 'failed' | 'succeeded' | 'failed';
   error : string | null | undefined;
   filtered : { sizes : string[], type : null | string }
@@ -23,7 +23,7 @@ export interface shopState {
 
 const initialState :shopState = {
   allProducts: [],
-  checkedProducts : [],
+  checkedProducts : [{id : null , quantity : 0}],
   status: 'idle',
   error : null,
   filtered : {
@@ -51,12 +51,21 @@ export const productSlice = createSlice({
       state.filtered.type = action.payload
     },
     addToCheckout : (state, action :PayloadAction<string>) => {
-      !state.checkedProducts.includes(action.payload) && state.checkedProducts.push(action.payload)
+      // !state.checkedProducts.includes(action.payload) && state.checkedProducts.push(action.payload)
+      if (state.checkedProducts.some(i => i.id === action.payload)) {
+        const item:any = state.checkedProducts.find(i => i.id === action.payload)
+        if (item) item.quantity += 1;
+      }
+      state.checkedProducts.push({id : action.payload, quantity : 1})
+
     },
     removeCheckout: (state, action: PayloadAction<string>) => {
-      const index = state.checkedProducts.indexOf(action.payload);
-      state.checkedProducts.includes(action.payload) &&
-        state.checkedProducts.splice(index, 1);
+      const index = state.checkedProducts.findIndex(i => i.id === action.payload);
+      if (state.checkedProducts.some(i => i.id === action.payload)) {
+        const item:any = state.checkedProducts.find(i => i.id === action.payload)
+        if (item.quantity > 1) item.quantity -= 1;
+        else state.checkedProducts.splice(index, 1);
+      }
     }
   },
 
